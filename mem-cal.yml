@@ -1,0 +1,22 @@
+---
+
+- name: Print Used Men
+  hosts: localhost
+  tasks:
+    - name: Get Memory
+      ansible.builtin.shell: free | grep Mem | xargs
+      register: free
+
+    - name: Print Free var
+      ansible.builtin.set_fact:
+        FREE: "{{ free.stdout.split(' ') }}"
+
+    - name: Set variables
+      ansible.builtin.set_fact:
+        free: '{{FREE[1]}}'
+        total: '{{FREE[3]}}'
+
+    - name: Print value
+      ansible.builtin.debug:
+         msg: '{{free | int / total | int}}'
+

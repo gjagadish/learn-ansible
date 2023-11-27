@@ -1,0 +1,6 @@
+---
+
+  - name: Role level var
+    hosts: localhost
+    roles:
+     - demo
